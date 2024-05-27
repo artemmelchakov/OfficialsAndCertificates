@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Результат:");
-
-//Зависимость между чиновниками - {1, [2]}, { 2,[3,4]} (т.е.первый чиновник чтобы дать справку требует справку от второго,
+﻿//Зависимость между чиновниками - {1, [2]}, { 2,[3,4]} (т.е.первый чиновник чтобы дать справку требует справку от второго,
 //а второй от третьего и четвертого).
 //Допустимы ответы:
 //{ 3, 4, 2, 1}
@@ -15,6 +12,16 @@ var nodeDependencyDictionary = new Dictionary<uint, uint[]>
     { 1, [2] }, 
     { 2, [3, 4] }
 };
+//{ 1,[2]}, { 3,[4]}
+//-2,1,4,3;
+
+// Вывод словаря зависимостей узлов на экран
+foreach (var keyValuePair in nodeDependencyDictionary)
+{
+    Console.WriteLine($"{{ {keyValuePair.Key}, [{string.Join(", ", keyValuePair.Value.Select(v => v))}] }}");
+}
+Console.WriteLine();
+
 
 //Необходимо найти узлы, из которых вообще не выходит стрелок.
 //Как?
@@ -56,6 +63,7 @@ while (true)
     }
 }
 
+Console.WriteLine("Результат:");
 while (resultStack.Count > 0)
 {
     Console.Write(resultStack.Pop() + " ");

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficialsAndCertificates", "OfficialsAndCertificates\OfficialsAndCertificates.csproj", "{A37CDBB6-213E-4BF3-93B8-B35332357DC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficialsAndCertificates", "OfficialsAndCertificates\OfficialsAndCertificates.csproj", "{A37CDBB6-213E-4BF3-93B8-B35332357DC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficialsAndCertificates.ConsoleApplication", "OfficialsAndCertificates.ConsoleApplication\OfficialsAndCertificates.ConsoleApplication.csproj", "{CE34917D-287E-4D64-9CA8-CACEFE180202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficialsAndCertificates.ConsoleApplication", "OfficialsAndCertificates.ConsoleApplication\OfficialsAndCertificates.ConsoleApplication.csproj", "{CE34917D-287E-4D64-9CA8-CACEFE180202}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfficialsAndCertificates.Tests", "OfficialsAndCertificates.Tests\OfficialsAndCertificates.Tests.csproj", "{6567EC00-E1BB-4DD9-9CE3-6FC53E8E7691}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CE34917D-287E-4D64-9CA8-CACEFE180202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE34917D-287E-4D64-9CA8-CACEFE180202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE34917D-287E-4D64-9CA8-CACEFE180202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6567EC00-E1BB-4DD9-9CE3-6FC53E8E7691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6567EC00-E1BB-4DD9-9CE3-6FC53E8E7691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6567EC00-E1BB-4DD9-9CE3-6FC53E8E7691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6567EC00-E1BB-4DD9-9CE3-6FC53E8E7691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
