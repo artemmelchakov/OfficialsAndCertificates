@@ -1,27 +1,31 @@
-﻿using System.Linq;
-
-namespace OfficialsAndCertificates.Algorithms
+﻿namespace OfficialsAndCertificates.Algorithms
 {
     public static class TopographicSorting
     {
+        /// <summary>
+        /// Топологическая сортировка графа, представленного словарём зависимостей.
+        /// </summary>
+        /// <param name="nodeDependencyDictionary">
+        /// Словарь графа. Здесь в Key лежит Id узла, а в Value - массив узлов, из которых идут дуги к данному узлу. 
+        /// Ещё в данном контексте они будут называться узлы-зависимости.
+        /// </param>
+        /// <returns> Отсортированное перечисление. </returns>
         public static IEnumerable<uint> Sort(Dictionary<uint, uint[]> nodeDependencyDictionary)
         {
             bool isFirstCycle = true;
             var resultStack = new Stack<uint>();
             while (true)
             {
-                //В теории графов, узел графа, в который входят связи, но не выходят, называется вершиной с входящими дугами (англ. source node).
-                //Получим список таких узлов.
+                // Получим все узлы, из которых выходят связи (sourceNodes).
                 var sourceNodes = nodeDependencyDictionary.Values.SelectMany(v => v).Distinct();
-                //В теории графов, узел графа, из которого не выходят связи, а только входят, называется стоком (англ. sink).
-                //Получим список таких узлов.
+                // В теории графов узел, из которого не выходят связи, а только входят, называется стоком (англ. sink).
+                // Получим список таких узлов.
                 var sinkNodes = nodeDependencyDictionary.Keys.Except(sourceNodes);
 
-                // При первом прохождении цикла мы должны записать самые первые стоки. Затем же алгоритм будет добавлять
-                // только узлы-зависимости (requiredNode) текущих стоков.
+                // При первом прохождении цикла мы должны записать в результирующий стек самые первые стоки.
+                // Затем же алгоритм будет добавлять только узлы-зависимости (requiredNode) текущих стоков.
                 if (isFirstCycle)
                 {
-                    // Добавляем первые стоки в результирующий список.
                     foreach (var sinkNode in sinkNodes)
                     {
                         resultStack.Push(sinkNode);
@@ -29,7 +33,7 @@ namespace OfficialsAndCertificates.Algorithms
                     isFirstCycle = false;
                 }
 
-                // Получаем узлы-зависимости (requiredNode) текущих стоков и помещаем их в стек.
+                // Получаем узлы-зависимости (requiredNode) текущих стоков и помещаем их в результирующий стек.
                 var requiredNodes = sinkNodes.SelectMany(sinkNode => nodeDependencyDictionary[sinkNode]).Distinct();
                 foreach (var requiredNode in requiredNodes)
                 {

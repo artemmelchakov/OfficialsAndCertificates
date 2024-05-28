@@ -3,7 +3,7 @@
     /// <summary>
     /// Чиновник.
     /// </summary>
-    public class Offical
+    public class Official
     {
     }
 }

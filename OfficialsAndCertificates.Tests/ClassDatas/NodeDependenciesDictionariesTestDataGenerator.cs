@@ -72,7 +72,7 @@ namespace OfficialsAndCertificates.Tests.ClassDatas
                 },
                 new uint[] { 5, 4, 3, 2, 1 }
             )            
-    };
+        };
 
         private readonly IEnumerable<object[]> _nodeDependencyDictionariesObj = 
             _nodeDependencyDictionaries.Select(dataAndExpectedResultTuple => new object[] { dataAndExpectedResultTuple.Item1, dataAndExpectedResultTuple.Item2 });

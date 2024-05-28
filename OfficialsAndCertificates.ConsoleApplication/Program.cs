@@ -1,72 +1,55 @@
-﻿//Зависимость между чиновниками - {1, [2]}, { 2,[3,4]} (т.е.первый чиновник чтобы дать справку требует справку от второго,
-//а второй от третьего и четвертого).
-//Допустимы ответы:
-//{ 3, 4, 2, 1}
-//{ 4, 3, 2, 1}
+﻿using OfficialsAndCertificates.Algorithms;
 
-//TODO!!! Обязательно найти алгоритм, который проверяет на отсутствие циклов в связях. В графах с циклами нельзя решить задачу!
+// Есть N чиновников, каждый из которых выдает справку определенного вида.
+// Кроме того, у каждого чиновника есть набор справок, которые нужно получить до того, как обратиться к нему за справкой.
+// Запрограммировать алгоритм, по которому можно получить все справки. Обойтись без рекурсии.
 
-// Опишем зависимость узлов в виде словаря, где Key - это id узла, а Value - массив узлов-зависимостей.
+// Пример:
+// N = 4
+// Зависимость между чиновниками - {1, [2]}, { 2,[3,4]}
+// (т.е.первый чиновник чтобы дать справку требует справку от второго, а второй от третьего и четвертого).
+// Допустимы ответы:
+// { 3, 4, 2, 1}
+// { 4, 3, 2, 1}
+
+
+
+
+
+// Опишем зависимость узлов в виде словаря, где Key - это Id узла,
+// а Value - массив узлов, из которых идут дуги к данному узлу (массив узлов-зависимостей).
 var nodeDependencyDictionary = new Dictionary<uint, uint[]> 
 {
     { 1, [2] }, 
     { 2, [3, 4] }
 };
-//{ 1,[2]}, { 3,[4]}
-//-2,1,4,3;
 
-// Вывод словаря зависимостей узлов на экран
-foreach (var keyValuePair in nodeDependencyDictionary)
-{
-    Console.WriteLine($"{{ {keyValuePair.Key}, [{string.Join(", ", keyValuePair.Value.Select(v => v))}] }}");
-}
-Console.WriteLine();
+//TODO!!! Обязательно найти алгоритм, который проверяет на отсутствие циклов в связях. В графах с циклами нельзя решить задачу!
 
+ShowNodeDependencyDictionary(nodeDependencyDictionary);
 
-//Необходимо найти узлы, из которых вообще не выходит стрелок.
-//Как?
-//
-//Их нет в массиве узлов-зависимостей.
-//
+var sortedEnumerable = TopographicSorting.Sort(nodeDependencyDictionary);
 
-
-
-
-// Результирующий стек. Сюда приходят первыми значения тех узлов, которые должны быть выведены последними.
-var resultStack = new Stack<uint>();
-
-while (true)
-{
-    //В теории графов, узел графа, в который входят связи, но не выходят, называется вершиной с входящими дугами (англ. source node).
-    //Получим список таких узлов.
-    var sourceNodes = nodeDependencyDictionary.Values.SelectMany(v => v).Distinct();
-    //В теории графов, узел графа, из которого не выходят связи, а только входят, называется стоком (англ. sink).
-    //Получим список таких узлов.
-    var sinkNodes = nodeDependencyDictionary.Keys.Except(sourceNodes).ToList();
-    // Добавляем выявленные стоки в результирующий список.
-    sinkNodes.ForEach(resultStack.Push);
-
-    // Если количество стоков не равно количеству пар в словаре,
-    // это означает, что можно убрать из словаря эти стоки и продолжить алгоритм.
-    if (sinkNodes.Count != nodeDependencyDictionary.Count)
-    {
-        // Убираем из словаря стоки 
-        sinkNodes.ForEach(sink => nodeDependencyDictionary.Remove(sink));
-    }
-    // Если же количество стоков равно количеству пар в словаре, то остались только последние стоки и вершины с входящими в них дугами.
-    // Их следует записать в стек и закончить алгоритм - все узлы будут лежать в нём отсортированными необходимым нам способом.
-    else 
-    {
-        // Запишем оставшие узлы (а остались только вершины с входящими дугами) в стек
-        sourceNodes.ToList().ForEach(resultStack.Push);
-        break; 
-    }
-}
-
-Console.WriteLine("Результат:");
-while (resultStack.Count > 0)
-{
-    Console.Write(resultStack.Pop() + " ");
-}
+ShowSortedEnumerable(sortedEnumerable);
 
 Console.ReadKey(true);
+
+
+
+
+
+// Вывод словаря зависимостей узлов в консоль
+void ShowNodeDependencyDictionary(Dictionary<uint, uint[]> nodeDependencyDictionary)
+{
+    foreach (var keyValuePair in nodeDependencyDictionary)
+    {
+        Console.WriteLine($"{{ {keyValuePair.Key}, [{string.Join(", ", keyValuePair.Value.Select(v => v))}] }}");
+    }
+    Console.WriteLine();
+}
+
+// Вывод отсортированного перечисления в консоль
+void ShowSortedEnumerable(IEnumerable<uint> sortedEnumerable)
+{
+    Console.WriteLine(string.Join(", ", sortedEnumerable));    
+}
